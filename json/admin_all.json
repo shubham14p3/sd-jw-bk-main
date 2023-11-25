@@ -1,0 +1,82 @@
+{
+    "status": true,
+    "message": "Staff get successfully",
+    "data": [
+        {
+            "_id": "6543e3921bd9540a17037d35",
+            "name": "Hamed Hasan",
+            "email": "hamedhasan422421@gmail.com",
+            "status": "Active",
+            "password": "$2a$10$8oCR8EwMLvHN7EJ41ogjuOkhq0nJ2sCEG9FbQUmFKO0hLeSyR9D8O",
+            "role": "Admin",
+            "createdAt": "2023-11-02T17:59:46.106Z",
+            "updatedAt": "2023-11-02T17:59:46.106Z",
+            "__v": 0
+        },
+        {
+            "_id": "653e2f7c69c14643f3ea14ad",
+            "name": "Stacey J. Meikle",
+            "image": "https://i.ibb.co/wpjNftS/user-2.jpg",
+            "email": "meikle@gmail.com",
+            "phone": "102-628-3122",
+            "status": "Active",
+            "password": "$2a$10$8EbPl6z5s.vqSdK0YimR2OQ7N8qu2Cg3KlIn3m.BfK9aRinElXej.",
+            "role": "Manager",
+            "__v": 0,
+            "createdAt": "2023-10-29T10:10:04.069Z",
+            "updatedAt": "2023-10-29T10:10:04.069Z"
+        },
+        {
+            "_id": "653e2f7c69c14643f3ea14ac",
+            "name": "Shawn E. Palmer",
+            "image": "https://i.ibb.co/wpjNftS/user-2.jpg",
+            "email": "palmer@gmail.com",
+            "phone": "902-628-3122",
+            "status": "Active",
+            "password": "$2a$10$Hdrh5ti1MbX0nCDXbSdtJucsXeElBGm3Qvg35sT4At0xBvJPzTqPq",
+            "role": "CEO",
+            "__v": 0,
+            "createdAt": "2023-10-29T10:10:04.069Z",
+            "updatedAt": "2023-10-29T10:10:04.069Z"
+        },
+        {
+            "_id": "653e2f7c69c14643f3ea14ab",
+            "name": "Corrie H. Cates",
+            "image": "https://i.ibb.co/wpjNftS/user-2.jpg",
+            "email": "corrie@gmail.com",
+            "phone": "708-628-3122",
+            "status": "Active",
+            "password": "$2a$10$EpPAfPTkKkqaNAkXv3EjNOYFKGBVFP84rNeQG2qdAdB64tse71Xdu",
+            "role": "Admin",
+            "__v": 0,
+            "createdAt": "2023-10-29T10:10:04.069Z",
+            "updatedAt": "2023-10-29T10:10:04.069Z"
+        },
+        {
+            "_id": "653e2f7c69c14643f3ea14aa",
+            "name": "Alice B. Porter",
+            "image": "https://i.ibb.co/wpjNftS/user-2.jpg",
+            "email": "porter@gmail.com",
+            "phone": "708-628-3122",
+            "status": "Active",
+            "password": "$2a$10$U2QGbOj1nz5rM78bKwybN.HU6jjwlUL4uwBDv7W6U.SXX7Udx/Hu6",
+            "role": "Admin",
+            "__v": 0,
+            "createdAt": "2023-10-29T10:10:04.069Z",
+            "updatedAt": "2023-10-29T10:10:04.069Z"
+        },
+        {
+            "_id": "653e2f7c69c14643f3ea14a9",
+            "name": "Dorothy R. Brown",
+            "image": "https://i.ibb.co/wpjNftS/user-2.jpg",
+            "email": "dorothy@gmail.com",
+            "phone": "708-628-3122",
+            "status": "Active",
+            "password": "$2a$10$GM6bA2JB7ONJYALcXmyN0uIxqB5WvL4rOEDBiFcwZX5fpyeFG3nKS",
+            "role": "Admin",
+            "__v": 0,
+            "createdAt": "2023-10-29T10:10:04.069Z",
+            "updatedAt": "2023-10-29T10:10:04.069Z"
+        }
+    ]
+}

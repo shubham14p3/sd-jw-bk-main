@@ -1,7 +1,7 @@
 const { secret } = require("../config/secret");
 const stripe = require("stripe")(secret.stripe_key);
 const Order = require("../model/Order");
-
+const { sendEmail } = require("../config/email");
 // create-payment-intent
 exports.paymentIntent = async (req, res, next) => {
   try {
@@ -19,7 +19,7 @@ exports.paymentIntent = async (req, res, next) => {
     });
   } catch (error) {
     console.log(error);
-    next(error)
+    next(error);
   }
 };
 // addOrder
@@ -27,40 +27,58 @@ exports.addOrder = async (req, res, next) => {
   try {
     const orderItems = await Order.create(req.body);
 
+    console.log("orderItems", orderItems);
+    const mailData = {
+      from: secret.email_user,
+      to: `${orderItems.email}`,
+      subject: "Order Confirmation",
+      subject: "Order Confirmation",
+      html: `<h2>Hello ${orderItems.name}</h2>
+      <p>Order Confirmation into your <strong>shofy</strong> account.</p>
+
+        <p>This link will expire in <strong> 10 minute</strong>.</p>
+
+        <p style="margin-bottom:20px;">Click this link for active your account</p>
+
+        <p style="margin-top: 35px;">If you did not initiate this request, please contact us immediately at support@shofy.com</p>
+
+        <p style="margin-bottom:0px;">Thank you</p>
+        <strong>shofy Team</strong>
+         `,
+    };
+    const message = "Please check your email for order!";
+    sendEmail(mailData, res, message);
     res.status(200).json({
       success: true,
       message: "Order added successfully",
       order: orderItems,
     });
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
-    next(error)
+    next(error);
   }
 };
 // get Orders
 exports.getOrders = async (req, res, next) => {
   try {
-    const orderItems = await Order.find({}).populate('user');
+    const orderItems = await Order.find({}).populate("user");
     res.status(200).json({
       success: true,
       data: orderItems,
     });
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
-    next(error)
+    next(error);
   }
 };
 // get Orders
 exports.getSingleOrder = async (req, res, next) => {
   try {
-    const orderItem = await Order.findById(req.params.id).populate('user');
+    const orderItem = await Order.findById(req.params.id).populate("user");
     res.status(200).json(orderItem);
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
-    next(error)
+    next(error);
   }
 };
 
@@ -75,14 +93,15 @@ exports.updateOrderStatus = async (req, res) => {
         $set: {
           status: newStatus,
         },
-      }, { new: true })
+      },
+      { new: true }
+    );
     res.status(200).json({
       success: true,
-      message: 'Status updated successfully',
+      message: "Status updated successfully",
     });
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
-    next(error)
+    next(error);
   }
 };

@@ -37,7 +37,7 @@ const adminSchema = new mongoose.Schema(
     status: {
       type: String,
       required: false,
-      default: "Active",
+      default: "Inactive",
       enum: ["Active", "Inactive"],
     },
     password: {

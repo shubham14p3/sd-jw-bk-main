@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs");
 const dayjs = require("dayjs");
 const utc = require("dayjs/plugin/utc");
 dayjs.extend(utc);
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 const { tokenForVerify } = require("../config/auth");
 const Admin = require("../model/Admin");
 const { generateToken } = require("../utils/token");
@@ -10,13 +10,13 @@ const { sendEmail } = require("../config/email");
 const { secret } = require("../config/secret");
 
 // register
-const registerAdmin = async (req, res,next) => {
+const registerAdmin = async (req, res, next) => {
   try {
-    const isAdded = await Admin.findOne({ email: req.body.email });
-    if (isAdded) {
-      return res.status(403).send({
-        message: "This Email already Added!",
-      });
+    const isAdmin = await Admin.findOne({ email: req.body.email });
+    if (isAdmin) {
+      res
+        .send({ status: "failed", message: "Email already exists" })
+        .status(403);
     } else {
       const newStaff = new Admin({
         name: req.body.name,
@@ -24,49 +24,96 @@ const registerAdmin = async (req, res,next) => {
         role: req.body.role,
         password: bcrypt.hashSync(req.body.password),
       });
-      const staff = await newStaff.save();
-      const token = generateToken(staff);
-      res.status(200).send({
-        token,
-        _id: staff._id,
-        name: staff.name,
-        email: staff.email,
-        role: staff.role,
-        joiningData: Date.now(),
-      });
+      const new_admin = await newStaff.save();
+      const token = new_admin.generateConfirmationToken();
+
+      await new_admin.save({ validateBeforeSave: false });
+
+      const mailData = {
+        from: secret.email_user,
+        to: req.body.email,
+        subject: "Verify Your Email - Shofy",
+        html: `
+          <h2>Hello ${req.body.name},</h2>
+          <p>Thank you for signing up with <strong>Shofy</strong>! To complete your registration, please verify your email address.</p>
+      
+          <p>This verification link will expire in <strong>10 minutes</strong>.</p>
+      
+          <p style="margin-bottom:20px;">Click the button below to activate your account:</p>
+      
+          <a href="${secret.client_url}/email-verify/${token}" style="background:#0989FF;color:white;border:1px solid #0989FF; padding: 10px 15px; border-radius: 4px; text-decoration:none;">Verify Account</a>
+      
+          <p style="margin-top: 35px;">If you did not initiate this request, please contact us immediately at support@shofy.com</p>
+      
+          <p style="margin-bottom:0px;">Thank you,</p>
+          <strong>Shofy Team</strong>
+        `,
+      };
+      
+      const message = "Please check your email to verify!";
+      sendEmail(mailData, res, message);
     }
-  } catch (err) {
-    next(err)
+  } catch (error) {
+    next(error);
   }
 };
 // login admin
-const loginAdmin = async (req, res,next) => {
-  // console.log(req.body)
+const loginAdmin = async (req, res, next) => {
   try {
-    const admin = await Admin.findOne({ email: req.body.email });
-    // console.log(admin)
-    if (admin && bcrypt.compareSync(req.body.password, admin.password)) {
-      const token = generateToken(admin);
-      res.send({
-        token,
-        _id: admin._id,
-        name: admin.name,
-        phone: admin.phone,
-        email: admin.email,
-        image: admin.image,
-        role: admin.role,
-      });
-    } else {
-      res.status(401).send({
-        message: "Invalid Email or password!",
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(401).json({
+        status: "fail",
+        error: "Please provide your credentials",
       });
     }
-  } catch (err) {
-    next(err)
+
+    const admin = await Admin.findOne({ email });
+
+    if (!admin) {
+      return res.status(401).json({
+        status: "fail",
+        error: "No user found. Please create an account",
+      });
+    }
+
+    const isPasswordValid = bcrypt.compareSync(
+      req.body.password,
+      admin.password
+    );
+
+    if (!isPasswordValid) {
+      return res.status(403).json({
+        status: "fail",
+        error: "Password is not correct",
+      });
+    }
+    if (admin.status !== "active" && admin.status !== "Active") {
+      return res.status(401).json({
+        status: "fail",
+        error: "Your account is not active yet.",
+      });
+    }
+
+    const token = generateToken(admin);
+
+    const { password: pwd, ...others } = admin.toObject();
+
+    res.status(200).json({
+      status: "success",
+      message: "Successfully logged in",
+      data: {
+        admin: others,
+        token,
+      },
+    });
+  } catch (error) {
+    next(error);
   }
 };
 // forget password
-const forgetPassword = async (req, res,next) => {
+const forgetPassword = async (req, res, next) => {
   try {
     const { email } = req.body;
     // console.log('email--->',email)
@@ -105,11 +152,11 @@ const forgetPassword = async (req, res,next) => {
       sendEmail(body, res, message);
     }
   } catch (error) {
-    next(error)
+    next(error);
   }
 };
 // confirm-forget-password
-const confirmAdminForgetPass = async (req, res,next) => {
+const confirmAdminForgetPass = async (req, res, next) => {
   try {
     const { token, password } = req.body;
     const admin = await Admin.findOne({ confirmationToken: token });
@@ -145,31 +192,30 @@ const confirmAdminForgetPass = async (req, res,next) => {
       });
     }
   } catch (error) {
-    next(error)
+    next(error);
   }
 };
 
 // change password
-const changePassword = async (req,res,next) => {
+const changePassword = async (req, res, next) => {
   try {
-    const {email,oldPass,newPass} = req.body || {};
+    const { email, oldPass, newPass } = req.body || {};
     const admin = await Admin.findOne({ email: email });
     // Check if the admin exists
     if (!admin) {
       return res.status(404).json({ message: "Admin not found" });
     }
-    if(!bcrypt.compareSync(oldPass, admin.password)){
+    if (!bcrypt.compareSync(oldPass, admin.password)) {
       return res.status(401).json({ message: "Incorrect current password" });
-    }
-    else {
+    } else {
       const hashedPassword = bcrypt.hashSync(newPass);
-      await Admin.updateOne({email:email},{password:hashedPassword})
+      await Admin.updateOne({ email: email }, { password: hashedPassword });
       res.status(200).json({ message: "Password changed successfully" });
     }
   } catch (error) {
-    next(error)
+    next(error);
   }
-}
+};
 // reset Password
 const resetPassword = async (req, res) => {
   const token = req.body.token;
@@ -177,7 +223,7 @@ const resetPassword = async (req, res) => {
   const staff = await Admin.findOne({ email: email });
 
   if (token) {
-    jwt.verify(token,secret.jwt_secret_for_verify,(err, decoded) => {
+    jwt.verify(token, secret.jwt_secret_for_verify, (err, decoded) => {
       if (err) {
         return res.status(500).send({
           message: "Token expired, please try again!",
@@ -193,7 +239,7 @@ const resetPassword = async (req, res) => {
   }
 };
 // add staff
-const addStaff = async (req, res,next) => {
+const addStaff = async (req, res, next) => {
   try {
     const isAdded = await Admin.findOne({ email: req.body.email });
     if (isAdded) {
@@ -202,7 +248,7 @@ const addStaff = async (req, res,next) => {
       });
     } else {
       const newStaff = new Admin({
-        name:req.body.name,
+        name: req.body.name,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password),
         phone: req.body.phone,
@@ -216,30 +262,30 @@ const addStaff = async (req, res,next) => {
       });
     }
   } catch (err) {
-    next(err)
+    next(err);
   }
 };
 // get all staff
-const getAllStaff = async (req, res,next) => {
+const getAllStaff = async (req, res, next) => {
   try {
     const admins = await Admin.find({}).sort({ _id: -1 });
     res.status(200).json({
-      status:true,
-      message:'Staff get successfully',
-      data:admins
+      status: true,
+      message: "Staff get successfully",
+      data: admins,
     });
   } catch (err) {
-    next(err)
+    next(err);
   }
 };
 // getStaffById
-const getStaffById = async (req, res,next) => {
+const getStaffById = async (req, res, next) => {
   // console.log('getStaffById',req.params.id)
   try {
     const admin = await Admin.findById(req.params.id);
     res.send(admin);
   } catch (err) {
-    next(err)
+    next(err);
   }
 };
 // updateStaff
@@ -254,9 +300,9 @@ const updateStaff = async (req, res) => {
       admin.joiningData = req.body.joiningDate;
       admin.image = req.body.image;
       admin.password =
-      req.body.password !== undefined
-        ? bcrypt.hashSync(req.body.password)
-        : admin.password;
+        req.body.password !== undefined
+          ? bcrypt.hashSync(req.body.password)
+          : admin.password;
       const updatedAdmin = await admin.save();
       const token = generateToken(updatedAdmin);
       res.send({
@@ -280,14 +326,14 @@ const updateStaff = async (req, res) => {
   }
 };
 // deleteStaff
-const deleteStaff = async (req, res,next) => {
+const deleteStaff = async (req, res, next) => {
   try {
     await Admin.findByIdAndDelete(req.params.id);
     res.status(200).json({
-      message:'Admin Deleted Successfully',
+      message: "Admin Deleted Successfully",
     });
   } catch (err) {
-    next(err)
+    next(err);
   }
 };
 

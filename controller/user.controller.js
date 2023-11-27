@@ -345,3 +345,17 @@ exports.signUpWithProvider = async (req, res,next) => {
     next(error)
   }
 };
+
+// get all user staff
+exports.getAllUserStaff = async (req, res, next) => {
+  try {
+    const users = await User.find({}).sort({ _id: -1 });
+    res.status(200).json({
+      status: true,
+      message: "Staff get successfully",
+      data: users,
+    });
+  } catch (err) {
+    next(err);
+  }
+};

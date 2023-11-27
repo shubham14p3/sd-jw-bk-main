@@ -42,14 +42,14 @@ const registerAdmin = async (req, res, next) => {
           <p style="margin-bottom:20px;">Click the button below to activate your account:</p>
       
           <a href="${secret.client_url}/email-verify/${token}" style="background:#0989FF;color:white;border:1px solid #0989FF; padding: 10px 15px; border-radius: 4px; text-decoration:none;">Verify Account</a>
-      
+
           <p style="margin-top: 35px;">If you did not initiate this request, please contact us immediately at support@shofy.com</p>
       
           <p style="margin-bottom:0px;">Thank you,</p>
           <strong>Shofy Team</strong>
         `,
       };
-      
+
       const message = "Please check your email to verify!";
       sendEmail(mailData, res, message);
     }
@@ -265,7 +265,7 @@ const addStaff = async (req, res, next) => {
     next(err);
   }
 };
-// get all staff
+// get all admin staff
 const getAllStaff = async (req, res, next) => {
   try {
     const admins = await Admin.find({}).sort({ _id: -1 });
@@ -358,7 +358,52 @@ const updatedStatus = async (req, res) => {
     });
   }
 };
+const confirmAdminEmail = async (req, res, next) => {
+  console.log("req", req);
+  try {
+    const { token } = req.params;
+    console.log("token", token);
+    const adminUser = await Admin.findOne({ confirmationToken: token });
+    console.log(adminUser);
+    if (!adminUser) {
+      return res.status(403).json({
+        status: "fail",
+        error: "Invalid token",
+      });
+    }
 
+    const expired = new Date() > new Date(adminUser.confirmationTokenExpires);
+
+    if (expired) {
+      return res.status(401).json({
+        status: "fail",
+        error: "Token expired",
+        message: "Token expired, ask support team to revalidate.",
+      });
+    }
+
+    adminUser.status = "active";
+    adminUser.confirmationToken = undefined;
+    adminUser.confirmationTokenExpires = undefined;
+
+    await adminUser.save({ validateBeforeSave: false });
+
+    const accessToken = generateToken(adminUser);
+
+    const { password: pwd, ...others } = adminUser.toObject();
+
+    res.status(200).json({
+      status: "success",
+      message: "Successfully activated your account.",
+      data: {
+        admin: others,
+        token: accessToken,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 module.exports = {
   registerAdmin,
   loginAdmin,
@@ -372,4 +417,5 @@ module.exports = {
   updatedStatus,
   changePassword,
   confirmAdminForgetPass,
+  confirmAdminEmail,
 };

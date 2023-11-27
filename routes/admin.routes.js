@@ -17,6 +17,9 @@ const {
 //register a staff
 router.post("/register", registerAdmin);
 
+//confirming Adming Email
+router.get("/confirmEmail/:token", confirmAdminEmail);
+
 //login a admin
 router.post("/login", loginAdmin);
 
@@ -26,7 +29,7 @@ router.patch("/change-password", changePassword);
 //login a admin
 router.post("/add", addStaff);
 
-//login a admin
+//login all admin
 router.get("/all", getAllStaff);
 
 //forget-password
@@ -46,5 +49,6 @@ router.patch("/update-stuff/:id", updateStaff);
 
 //delete a staff
 router.delete("/:id", deleteStaff);
+
 
 module.exports = router;

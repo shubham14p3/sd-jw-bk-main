@@ -15,9 +15,12 @@ router.patch('/confirm-forget-password', userController.confirmForgetPassword);
 router.patch('/change-password', userController.changePassword);
 // confirmEmail
 router.get('/confirmEmail/:token', userController.confirmEmail);
+// //login and get all admin
+router.get("/all", userController.getAllUserStaff);
 // updateUser
 router.put('/update-user/:id', userController.updateUser);
 // register or login with google
 router.post("/register/:token", userController.signUpWithProvider);
+
 
 module.exports = router;

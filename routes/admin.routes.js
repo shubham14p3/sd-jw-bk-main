@@ -8,7 +8,7 @@ const {
   addStaff,
   getAllStaff,
   deleteStaff,
-  getStaffById,
+  getAdminUserById,
   forgetPassword,
   confirmAdminEmail,
   confirmAdminForgetPass,
@@ -39,7 +39,7 @@ router.patch("/forget-password", forgetPassword);
 router.patch("/confirm-forget-password", confirmAdminForgetPass);
 
 //get a staff
-router.get("/get/:id", getStaffById);
+router.get("/getAdminUserById/:id", getAdminUserById);
 
 // update a staff
 router.patch("/update-stuff/:id", updateStaff);

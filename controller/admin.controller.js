@@ -279,7 +279,7 @@ const getAllStaff = async (req, res, next) => {
   }
 };
 // getStaffById
-const getStaffById = async (req, res, next) => {
+const getAdminUserById = async (req, res, next) => {
   // console.log('getStaffById',req.params.id)
   try {
     const admin = await Admin.findById(req.params.id);
@@ -411,7 +411,7 @@ module.exports = {
   resetPassword,
   addStaff,
   getAllStaff,
-  getStaffById,
+  getAdminUserById,
   updateStaff,
   deleteStaff,
   updatedStatus,

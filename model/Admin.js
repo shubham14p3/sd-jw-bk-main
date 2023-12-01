@@ -62,7 +62,7 @@ const adminSchema = new mongoose.Schema(
       unique: true,
       lowercase: true,
     },
-    phoneNo: {
+    mobileNo: {
       type: String,
       required: false,
     },

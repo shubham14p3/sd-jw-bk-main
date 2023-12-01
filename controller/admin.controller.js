@@ -317,12 +317,15 @@ const updateAdminStaff = async (req, res) => {
   try {
     const admin = await Admin.findOne({ _id: req.params.id });
     if (admin) {
+      console.log(req.body)
       const updatedAdmin = await admin.set({ ...req.body }).save();
       const token = generateToken(updatedAdmin);
       res.send({
         token,
         _id: updatedAdmin._id,
         admin: updatedAdmin,
+        message: "This Admin Staff updated successfully.",
+        status:200
       });
     } else {
       res.status(404).send({

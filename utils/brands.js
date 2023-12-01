@@ -8,7 +8,7 @@ const brands = [
     email: "logitech@gmail.com",
     website: "logitech.com",
     location: "Apples, Switzerland",
-    status: "active",
+    status: "Active",
     logo: "https://i.ibb.co/Ydf3C1H/brand-1.png",
   },
   {
@@ -27,7 +27,7 @@ const brands = [
     email: "sony@gmail.com",
     website: "sony.com",
     location: "Apples, America",
-    status: "active",
+    status: "Active",
     logo: "https://i.ibb.co/GTzWqnP/brand-2.png",
   },
   {
@@ -39,7 +39,7 @@ const brands = [
     email: "samsung@gmail.com",
     website: "samsung.com",
     location: "Samsung, US",
-    status: "active",
+    status: "Active",
     logo: "https://i.ibb.co/YPzHpCD/brand-3.png",
   },
   {
@@ -55,7 +55,7 @@ const brands = [
     email: "apple@gmail.com",
     website: "apple.com",
     location: "Apple, US",
-    status: "active",
+    status: "Active",
     logo: "https://i.ibb.co/n3Wktzh/brand-4.png",
   },
   {
@@ -67,7 +67,7 @@ const brands = [
     email: "deepcool@gmail.com",
     website: "deepcool.com",
     location: "Deepcool, US",
-    status: "active",
+    status: "Active",
     logo: "https://i.ibb.co/xqTCvsL/brand-5.png",
   },
   {
@@ -79,7 +79,7 @@ const brands = [
     email: "antec@gmail.com",
     website: "antec.com",
     location: "Antec, US",
-    status: "active",
+    status: "Active",
     logo: "https://i.ibb.co/SfBRy61/brand-6.png",
   },
   {
@@ -91,7 +91,7 @@ const brands = [
     email: "lenovo@gmail.com",
     website: "lenovo.com",
     location: "lenovo, US",
-    status: "active",
+    status: "Active",
     logo: "https://i.ibb.co/LNymxGk/brand-7.png",
   },
   {
@@ -102,7 +102,7 @@ const brands = [
     email: "legendary-whitetails@gmail.com",
     website: "legendary-whitetails.com",
     location: "Legendary Whitetails, US",
-    status: "active",
+    status: "Active",
     products: [
       "6421258288fba3e101965dc3",
       "64215fb702240f90b1138e14",
@@ -119,7 +119,7 @@ const brands = [
     email: "nike@gmail.com",
     website: "nike.com",
     location: "Nike, US",
-    status: "active",
+    status: "Active",
     products: ["64216e2f02240f90b1138e96", "6421700802240f90b1138e9e"],
     logo: "https://i.ibb.co/GTzWqnP/brand-2.png",
   },
@@ -131,7 +131,7 @@ const brands = [
     email: "inika@gmail.com",
     website: "inika.com",
     location: "INIKA, US",
-    status: "active",
+    status: "Active",
     products: [
       "64250d8e253d81bc860d4d26",
       "642515c0253d81bc860d4da3",
@@ -151,7 +151,7 @@ const brands = [
     email: "louisvuitton@gmail.com",
     website: "louisvuitton.com",
     location: "Louis Vuitton, US",
-    status: "active",
+    status: "Active",
     products: [
       "6431364df5a812bd37e765ac",
       "64313abdf5a812bd37e765bc",

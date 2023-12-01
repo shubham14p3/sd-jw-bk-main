@@ -86,7 +86,7 @@ module.exports.login = async (req, res,next) => {
       });
     }
 
-    if (user.status != "active") {
+    if (user.status != "Active") {
       return res.status(401).json({
         status: "fail",
         error: "Your account is not active yet.",
@@ -132,7 +132,7 @@ exports.confirmEmail = async (req, res,next) => {
       });
     }
 
-    user.status = "active";
+    user.status = "Active";
     user.confirmationToken = undefined;
     user.confirmationTokenExpires = undefined;
 
@@ -321,7 +321,7 @@ exports.signUpWithProvider = async (req, res,next) => {
         name: user.name,
         email: user.email,
         imageURL: user.picture,
-        status: 'active'
+        status: 'Active'
       });
 
       const signUpUser = await newUser.save();

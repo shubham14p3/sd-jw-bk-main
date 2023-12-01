@@ -26,8 +26,6 @@ exports.paymentIntent = async (req, res, next) => {
 exports.addOrder = async (req, res, next) => {
   try {
     const orderItems = await Order.create(req.body);
-
-    console.log("orderItems", orderItems);
     const mailData = {
       from: secret.email_user,
       to: `${orderItems.email}`,

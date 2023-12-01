@@ -60,8 +60,8 @@ const userSchema = mongoose.Schema(
     },
     status: {
       type: String,
-      default: "inactive",
-      enum: ["active", "inactive", "blocked"],
+      default: "Inactive",
+      enum: ["Active", "Inactive", "Blocked"],
     },
     reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: "Reviews" }],
     confirmationToken: String,

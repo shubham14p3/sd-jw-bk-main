@@ -317,7 +317,6 @@ const updateAdminStaff = async (req, res) => {
   try {
     const admin = await Admin.findOne({ _id: req.params.id });
     if (admin) {
-      console.log(req.body)
       const updatedAdmin = await admin.set({ ...req.body }).save();
       const token = generateToken(updatedAdmin);
       res.send({
@@ -373,12 +372,9 @@ const updatedStatus = async (req, res) => {
   }
 };
 const confirmAdminEmail = async (req, res, next) => {
-  console.log("req", req);
   try {
     const { token } = req.params;
-    console.log("token", token);
     const adminUser = await Admin.findOne({ confirmationToken: token });
-    console.log(adminUser);
     if (!adminUser) {
       return res.status(403).json({
         status: "fail",
@@ -396,7 +392,7 @@ const confirmAdminEmail = async (req, res, next) => {
       });
     }
 
-    adminUser.status = "active";
+    adminUser.status = "Active";
     adminUser.confirmationToken = undefined;
     adminUser.confirmationTokenExpires = undefined;
 

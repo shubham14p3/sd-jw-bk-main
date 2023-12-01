@@ -4,7 +4,7 @@
     "email": "paul@gmail.com",
     "role": "user",
     "name": "Paul R. Bruns",
-    "status": "active",
+    "status": "Active",
     "reviews": [
       "6461c46a9154b65448da799f",
       "6461c5b99154b65448da7a38",
@@ -19,7 +19,7 @@
     "email": "linda@gmail.com",
     "role": "user",
     "name": "Linda",
-    "status": "active",
+    "status": "Active",
     "reviews": [
       "6461f6098a8552beef539317",
       "64620cef8a8552beef5394ba",
@@ -33,7 +33,7 @@
     "password": "223366",
     "role": "user",
     "name": "James J. Allen",
-    "status": "active",
+    "status": "Active",
     "reviews": [
       "646851914edd5c5271092b1d",
       "646851be4edd5c5271092be3",

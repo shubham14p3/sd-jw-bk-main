@@ -28,8 +28,8 @@ const brandSchema = mongoose.Schema({
   location: String,
   status: {
     type: String,
-    enum: ["active", "inactive"],
-    default: "active"
+    enum: ["Active", "Inactive"],
+    default: "Active"
   },
   products: [{
     type: ObjectId,

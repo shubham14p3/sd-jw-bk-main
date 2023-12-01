@@ -7,7 +7,7 @@
       "email": "logitech@gmail.com",
       "website": "logitech.com",
       "location": "Apples, Switzerland",
-      "status": "active",
+      "status": "Active",
       "products": [
         {
           "brand": {
@@ -127,7 +127,7 @@
       "email": "deepcool@gmail.com",
       "website": "deepcool.com",
       "location": "Deepcool, US",
-      "status": "active",
+      "status": "Active",
       "products": [
         {
           "brand": {
@@ -245,7 +245,7 @@
       "email": "inika@gmail.com",
       "website": "inika.com",
       "location": "INIKA, US",
-      "status": "active",
+      "status": "Active",
       "products": [
         {
           "brand": {
@@ -940,7 +940,7 @@
       "email": "samsung@gmail.com",
       "website": "samsung.com",
       "location": "Samsung, US",
-      "status": "active",
+      "status": "Active",
       "products": [
         {
           "brand": {
@@ -1059,7 +1059,7 @@
       "email": "antec@gmail.com",
       "website": "antec.com",
       "location": "Antec, US",
-      "status": "active",
+      "status": "Active",
       "products": [
         {
           "brand": {
@@ -1275,7 +1275,7 @@
       "email": "louisvuitton@gmail.com",
       "website": "louisvuitton.com",
       "location": "Louis Vuitton, US",
-      "status": "active",
+      "status": "Active",
       "products": [
         {
           "brand": {
@@ -1836,7 +1836,7 @@
       "email": "sony@gmail.com",
       "website": "sony.com",
       "location": "Apples, America",
-      "status": "active",
+      "status": "Active",
       "products": [
         {
           "brand": {
@@ -2466,7 +2466,7 @@
       "email": "legendary-whitetails@gmail.com",
       "website": "legendary-whitetails.com",
       "location": "Legendary Whitetails, US",
-      "status": "active",
+      "status": "Active",
       "products": [
         {
           "brand": {
@@ -2899,7 +2899,7 @@
       "email": "apple@gmail.com",
       "website": "apple.com",
       "location": "Apple, US",
-      "status": "active",
+      "status": "Active",
       "products": [
         {
           "brand": {
@@ -3225,7 +3225,7 @@
       "email": "nike@gmail.com",
       "website": "nike.com",
       "location": "Nike, US",
-      "status": "active",
+      "status": "Active",
       "products": [
         {
           "brand": {
@@ -3448,7 +3448,7 @@
       "email": "lenovo@gmail.com",
       "website": "lenovo.com",
       "location": "lenovo, US",
-      "status": "active",
+      "status": "Active",
       "products": [
         {
           "brand": {

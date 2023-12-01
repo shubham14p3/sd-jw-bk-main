@@ -8,7 +8,7 @@
         "discountPercentage": 10,
         "minimumAmount": 300,
         "productType": "jewelry",
-        "status": "active",
+        "status": "Active",
         "__v": 0,
         "createdAt": "2023-10-29T10:10:01.481Z",
         "updatedAt": "2023-10-29T10:10:01.481Z"
@@ -22,7 +22,7 @@
         "discountPercentage": 14,
         "minimumAmount": 500,
         "productType": "beauty",
-        "status": "active",
+        "status": "Active",
         "__v": 0,
         "createdAt": "2023-10-29T10:10:01.481Z",
         "updatedAt": "2023-10-29T10:10:01.481Z"
@@ -36,7 +36,7 @@
         "discountPercentage": 8,
         "minimumAmount": 400,
         "productType": "fashion",
-        "status": "active",
+        "status": "Active",
         "__v": 0,
         "createdAt": "2023-10-29T10:10:01.481Z",
         "updatedAt": "2023-10-29T10:10:01.481Z"
@@ -50,7 +50,7 @@
         "discountPercentage": 14,
         "minimumAmount": 700,
         "productType": "electronics",
-        "status": "active",
+        "status": "Active",
         "__v": 0,
         "createdAt": "2023-10-29T10:10:01.481Z",
         "updatedAt": "2023-10-29T10:10:01.481Z"

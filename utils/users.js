@@ -6,7 +6,7 @@ const users = [
     email: "paul@gmail.com",
     role: "user",
     name: "Paul R. Bruns",
-    status: "active",
+    status: "Active",
     password:bcrypt.hashSync('123456'),
     reviews: [
       "6461c46a9154b65448da799f",
@@ -22,7 +22,7 @@ const users = [
     email: "linda@gmail.com",
     role: "user",
     name: "Linda",
-    status: "active",
+    status: "Active",
     password:bcrypt.hashSync('123456'),
     reviews: [
       "6461f6098a8552beef539317",
@@ -37,7 +37,7 @@ const users = [
     password: "223366",
     role: "user",
     name: "James J. Allen",
-    status: "active",
+    status: "Active",
     password:bcrypt.hashSync('223355'),
     reviews: [
       "646851914edd5c5271092b1d",

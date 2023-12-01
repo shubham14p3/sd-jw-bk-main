@@ -17,7 +17,7 @@ exports.addAllBrandService = async (data) => {
 
 // get all Brands service
 exports.getBrandsService = async () => {
-  const brands = await Brand.find({status:'active'}).populate('products');
+  const brands = await Brand.find({status:'Active'}).populate('products');
   return brands;
 }
 

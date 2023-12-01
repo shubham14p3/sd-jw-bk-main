@@ -1,14 +1,46 @@
 const mongoose = require("mongoose");
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 
 const adminSchema = new mongoose.Schema(
   {
-    name: {
+    firstName: {
       type: String,
       required: true,
     },
-    image: {
+    lastName: {
+      type: String,
+      required: true,
+    },
+    profilePic: {
+      type: String,
+      required: false,
+    },
+    profileCover: {
+      type: String,
+      required: false,
+    },
+    facebook: {
+      type: String,
+      required: false,
+    },
+    youtube: {
+      type: String,
+      required: false,
+    },
+    twitter: {
+      type: String,
+      required: false,
+    },
+    pinterest: {
+      type: String,
+      required: false,
+    },
+    linkedin: {
+      type: String,
+      required: false,
+    },
+    instagram: {
       type: String,
       required: false,
     },
@@ -30,7 +62,11 @@ const adminSchema = new mongoose.Schema(
       unique: true,
       lowercase: true,
     },
-    phone: {
+    phoneNo: {
+      type: String,
+      required: false,
+    },
+    faxNo: {
       type: String,
       required: false,
     },
@@ -49,12 +85,7 @@ const adminSchema = new mongoose.Schema(
       type: String,
       required: true,
       default: "Admin",
-      enum: [
-        "Admin",
-        "Super Admin",
-        "Manager",
-        "CEO",
-      ],
+      enum: ["Admin", "Super Admin", "Manager", "CEO"],
     },
     joiningDate: {
       type: Date,
@@ -64,7 +95,7 @@ const adminSchema = new mongoose.Schema(
     confirmationTokenExpires: Date,
   },
   {
-    timestamps: true, 
+    timestamps: true,
   }
 );
 

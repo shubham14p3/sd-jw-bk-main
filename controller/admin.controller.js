@@ -19,7 +19,8 @@ const registerAdmin = async (req, res, next) => {
         .status(403);
     } else {
       const newStaff = new Admin({
-        name: req.body.name,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
         email: req.body.email,
         role: req.body.role,
         password: bcrypt.hashSync(req.body.password),
@@ -293,26 +294,12 @@ const updateStaff = async (req, res) => {
   try {
     const admin = await Admin.findOne({ _id: req.params.id });
     if (admin) {
-      admin.name = req.body.name;
-      admin.email = req.body.email;
-      admin.phone = req.body.phone;
-      admin.role = req.body.role;
-      admin.joiningData = req.body.joiningDate;
-      admin.image = req.body.image;
-      admin.password =
-        req.body.password !== undefined
-          ? bcrypt.hashSync(req.body.password)
-          : admin.password;
-      const updatedAdmin = await admin.save();
+      const updatedAdmin = await admin.set({ ...req.body }).save();
       const token = generateToken(updatedAdmin);
       res.send({
         token,
         _id: updatedAdmin._id,
-        name: updatedAdmin.name,
-        email: updatedAdmin.email,
-        role: updatedAdmin.role,
-        image: updatedAdmin.image,
-        phone: updatedAdmin.phone,
+        staff: admin,
       });
     } else {
       res.status(404).send({
@@ -325,6 +312,30 @@ const updateStaff = async (req, res) => {
     });
   }
 };
+// updateAdminStaff
+const updateAdminStaff = async (req, res) => {
+  try {
+    const admin = await Admin.findOne({ _id: req.params.id });
+    if (admin) {
+      const updatedAdmin = await admin.set({ ...req.body }).save();
+      const token = generateToken(updatedAdmin);
+      res.send({
+        token,
+        _id: updatedAdmin._id,
+        admin: updatedAdmin,
+      });
+    } else {
+      res.status(404).send({
+        message: "This Admin Staff not found!",
+      });
+    }
+  } catch (err) {
+    res.status(500).send({
+      message: err.message,
+    });
+  }
+};
+
 // deleteStaff
 const deleteStaff = async (req, res, next) => {
   try {
@@ -418,4 +429,5 @@ module.exports = {
   changePassword,
   confirmAdminForgetPass,
   confirmAdminEmail,
+  updateAdminStaff,
 };

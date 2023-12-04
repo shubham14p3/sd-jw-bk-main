@@ -8,6 +8,10 @@ const multer = require('multer');
 const upload = multer();
 //add image
 router.post('/add-img',upload.single('image'), cloudinaryController.saveImageCloudinary);
+//Admin Profile Pic Update
+router.post('/add-admin-profile-img/:id',upload.single('image'), cloudinaryController.saveAdminProfileImageCloudinary);
+//Admin Profile Cover Update
+router.post('/add-admin-profile-cover-img/:id',upload.single('image'), cloudinaryController.saveAdminProfileCoverImageCloudinary);
 
 //add image
 router.post('/add-multiple-img',upload.array('images',5), cloudinaryController.addMultipleImageCloudinary);

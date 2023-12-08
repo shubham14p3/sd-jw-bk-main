@@ -21,11 +21,15 @@ function fetchLatestEmail() {
           reject(err);
           return;
         }
+// To use only 1 mail
+        // const f = imap.seq.fetch(box.messages.total + ":*", {
 
-        const f = imap.seq.fetch(box.messages.total + ":*", {
+            // TO use all mail
+        const f = imap.seq.fetch("1:*", {
           bodies: ["HEADER.FIELDS (FROM TO SUBJECT DATE)", "TEXT"],
         });
 
+        let allEmailDetails = [];
         let emailDetails = {};
 
         f.on("message", function (msg, seqno) {
@@ -64,7 +68,14 @@ function fetchLatestEmail() {
           });
 
           msg.once("end", function () {
-            resolve(emailDetails);
+            // Add the emailDetails to the array for each email
+            allEmailDetails.push(emailDetails);
+            emailDetails = {}; // Reset emailDetails for the next email
+        
+            // If all messages have been processed, resolve with the array of email details
+            if (seqno === box.messages.total) {
+              resolve(allEmailDetails);
+            }
           });
         });
 

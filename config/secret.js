@@ -24,4 +24,12 @@ module.exports.secret = {
   stripe_key: process.env.STRIPE_KEY, 
   client_url: process.env.STORE_URL, 
   admin_url:process.env.ADMIN_URL, 
+
+  imap_user:process.env.IMAP_USER,
+  imap_password:process.env.IMAP_PASSWORD,
+  imap_host:process.env.IMAP_HOST,
+  imap_port:process.env.IMAP_PORT,
+  imap_tls:process.env.IMAP_TLS,
+
+
 }

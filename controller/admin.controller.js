@@ -284,7 +284,14 @@ const getAdminUserById = async (req, res, next) => {
   // console.log('getStaffById',req.params.id)
   try {
     const admin = await Admin.findById(req.params.id);
-    res.send(admin);
+    if (admin) {
+      const token = generateToken(admin);
+      res.status(200).send({ token, admin });
+    } else {
+      res.status(404).send({
+        message: "This Staff not found!",
+      });
+    }
   } catch (err) {
     next(err);
   }
@@ -324,7 +331,7 @@ const updateAdminStaff = async (req, res) => {
         _id: updatedAdmin._id,
         admin: updatedAdmin,
         message: "This Admin Staff updated successfully.",
-        status:200
+        status: 200,
       });
     } else {
       res.status(404).send({
